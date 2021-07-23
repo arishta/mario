@@ -45,28 +45,15 @@ scene("game", ({ level, score }) => {
 
   const maps = [
     [
-      '                                      ',
-      '                                      ',
-      '                                      ',
-      '                                      ',
-      '                                      ',
-      '     %   =*=%=                        ',
-      '                                      ',
-      '                            -+        ',
-      '                    ^   ^   ()        ',
-      '==============================   =====',
-    ],
-    [
-      '£                                       £',
-      '£                                       £',
-      '£                                       £',
-      '£                                       £',
-      '£                                       £',
-      '£        @@@@@@              x x        £',
-      '£                          x x x        £',
-      '£                        x x x x  x   -+£',
-      '£               z   z  x x x x x  x   ()£',
-      '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+      '=                                      =',
+      '=                                      =',
+      '=                                      =',
+      '=                                      =',
+      '=                                      =',
+      '=     %   =*=%=    %    %     %     %  =',
+      '=                                      =',
+      '=                                      =',
+      '========================================',
     ]
   ]
 
@@ -78,17 +65,17 @@ scene("game", ({ level, score }) => {
     '%': [sprite('surprise'), solid(), 'coin-surprise'],
     '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
     '}': [sprite('unboxed'), solid()],
-    '(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
-    ')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
-    '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
-    '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
-    '^': [sprite('evil-shroom'), solid(), 'dangerous'],
+    //'(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
+    //')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
+    // '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
+    // '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
+    // '^': [sprite('evil-shroom'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), solid(), 'mushroom', body()],
-    '!': [sprite('blue-block'), solid(), scale(0.5)],
-    '£': [sprite('blue-brick'), solid(), scale(0.5)],
-    'z': [sprite('blue-evil-shroom'), solid(), scale(0.5), 'dangerous'],
-    '@': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
-    'x': [sprite('blue-steel'), solid(), scale(0.5)],
+    // '!': [sprite('blue-block'), solid(), scale(0.5)],
+    // '£': [sprite('blue-brick'), solid(), scale(0.5)],
+    // 'z': [sprite('blue-evil-shroom'), solid(), scale(0.5), 'dangerous'],
+    // '@': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
+    // 'x': [sprite('blue-steel'), solid(), scale(0.5)],
 
   }
 
@@ -103,11 +90,11 @@ scene("game", ({ level, score }) => {
     }
   ])
 
-  add([text('level ' + parseInt(level + 1) ), pos(40, 6)])
+  add([text('Question ' + parseInt(level + 1) ), pos(40, 6)])
   
   function big() {
     let timer = 0
-    let isBig = false
+    let isBig = true
     return {
       update() {
         if (isBig) {
@@ -125,7 +112,7 @@ scene("game", ({ level, score }) => {
         this.scale = vec2(1)
         CURRENT_JUMP_FORCE = JUMP_FORCE
         timer = 0
-        isBig = false
+        isBig = true
       },
       biggify(time) {
         this.scale = vec2(2)
@@ -190,14 +177,14 @@ scene("game", ({ level, score }) => {
     }
   })
 
-  player.collides('pipe', () => {
-    keyPress('down', () => {
-      go('game', {
-        level: (level + 1) % maps.length,
-        score: scoreLabel.value
-      })
-    })
-  })
+  // player.collides('pipe', () => {
+  //   keyPress('down', () => {
+  //     go('game', {
+  //       level: (level + 1) % maps.length,
+  //       score: scoreLabel.value
+  //     })
+  //   })
+  // })
 
   keyDown('left', () => {
     player.move(-MOVE_SPEED, 0)

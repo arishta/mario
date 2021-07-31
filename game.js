@@ -26,6 +26,17 @@ loadSprite('block', 'M6rwarW.png')
 loadSprite('mario', 'Wb1qfhK.png')
 loadSprite('mushroom', '0wMd92p.png')
 loadSprite('surprise', 'gesQ1KP.png')
+// loadSprite('2', 'gesQ1KP.png')
+// loadSprite('3', 'gesQ1KP.png')
+// loadSprite('4', 'gesQ1KP.png')
+// loadSprite('5', 'gesQ1KP.png')
+// loadSprite('6', 'gesQ1KP.png')
+// loadSprite('7', 'gesQ1KP.png')
+// loadSprite('8', 'gesQ1KP.png')
+// loadSprite('9', 'gesQ1KP.png')
+// loadSprite('A', 'gesQ1KP.png')
+// loadSprite('B', 'gesQ1KP.png')
+loadSprite('C', 'gesQ1KP.png')
 loadSprite('unboxed', 'bdrLpi6.png')
 loadSprite('pipe-top-left', 'ReTPiWY.png')
 loadSprite('pipe-top-right', 'hj2GK4n.png')
@@ -45,15 +56,15 @@ scene("game", ({ level, score }) => {
 
   const maps = [
     [
-      '=                                      =',
-      '=                                      =',
-      '=                                      =',
-      '=                                      =',
-      '=                                      =',
-      '=     %   =*=%=    %    %     %     %  =',
-      '=                                      =',
-      '=                                      =',
-      '========================================',
+      '=                                                                =',
+      '=                                                                =',
+      '=                                                                =',
+      '=                                                                =',
+      '=                                                                =',
+      '=    1   2   3   4      5  6     7  8       9   A      B   C     =',
+      '=                                                                =',
+      '=                                                                =',
+      '==================================================================',
     ]
   ]
 
@@ -62,14 +73,25 @@ scene("game", ({ level, score }) => {
     height: 20,
     '=': [sprite('block'), solid()],
     '$': [sprite('coin'), 'coin'],
-    '%': [sprite('surprise'), solid(), 'coin-surprise'],
+    '1': [sprite('surprise'), solid(), 'coin-surprise'],
+    '2': [sprite('surprise'), solid(), 'coin-surprise'],
+    '3': [sprite('surprise'), solid(), 'coin-surprise'],
+    '4': [sprite('surprise'), solid(), 'coin-surprise'],
+    '5': [sprite('surprise'), solid(), 'coin-surprise'],
+    '6': [sprite('surprise'), solid(), 'coin-surprise'],
+    '7': [sprite('surprise'), solid(), 'coin-surprise'],
+    '8': [sprite('surprise'), solid(), 'coin-surprise'],
+    '9': [sprite('surprise'), solid(), 'coin-surprise'],
+    'A': [sprite('surprise'), solid(), 'coin-surprise'],
+    'B': [sprite('surprise'), solid(), 'coin-surprise'],
+    'C': [sprite('surprise'), solid(), 'coin-surprise'],
     '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
     '}': [sprite('unboxed'), solid()],
     //'(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
     //')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
     // '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
     // '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
-    // '^': [sprite('evil-shroom'), solid(), 'dangerous'],
+     '^': [sprite('evil-shroom'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), solid(), 'mushroom', body()],
     // '!': [sprite('blue-block'), solid(), scale(0.5)],
     // '£': [sprite('blue-brick'), solid(), scale(0.5)],
@@ -89,8 +111,16 @@ scene("game", ({ level, score }) => {
       value: score,
     }
   ])
-
-  add([text('Question ' + parseInt(level + 1) ), pos(40, 6)])
+  //add([text('Question ' + parseInt(level + 1) ), pos(40, 6)])
+  add([text(' what is your\neducation level ' ), pos(150, 11)])
+  add([text(' Highschool   12th    Bachelors   Phd'), pos(60, 80)])
+  add([text('    Do You\nhave children'), pos(470, 11)])
+  add([text('Yes     No'), pos(480, 80)])
+  add([text(' what is\nyour gender '), pos(660, 11)])
+  add([text('Male   Female'), pos(650, 80)])
+  add([text(' what is your \nmarriage type ' ), pos(870, 11)])
+  add([text('what is your\nworking status '), pos(1100, 11)])
+  
   
   function big() {
     let timer = 0

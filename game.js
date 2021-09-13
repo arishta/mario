@@ -1,14 +1,12 @@
 kaboom({
   global: true,
   fullscreen: true,
-  scale: 2,
+  scale: 1,
   debug: true,
-  clearColor: [0, 0, 0, 1],
+  clearColor: [0.4, 0.1, 0.4, 1],
 })
-
-// Speed identifiers
-const MOVE_SPEED = 120
-const JUMP_FORCE = 360
+const MOVE_SPEED = 400
+const JUMP_FORCE = 660
 const BIG_JUMP_FORCE = 550
 let CURRENT_JUMP_FORCE = JUMP_FORCE
 const FALL_DEATH = 400
@@ -17,15 +15,24 @@ const ENEMY_SPEED = 20
 // Game logic
 
 let isJumping = true
-
+// add([
+//   rect(width(), 48),
+//   pos(0, height() - 48),
+//   outline(4),
+//   area(),
+//   solid(),
+//   color(127, 200, 255),
+//])
 loadRoot('https://i.imgur.com/')
-loadSprite('coin', 'wbKxhcd.png')
+loadSprite('coin', 'D9Nljxd.png?1')
+loadSprite('background','0tdFv3g.png')
 loadSprite('evil-shroom', 'KPO3fR9.png')
 loadSprite('brick', 'pogC9x5.png')
-loadSprite('block', 'M6rwarW.png')
-loadSprite('mario', 'Wb1qfhK.png')
+loadSprite('block', 'Nkiciju.png?1')
+loadSprite('mario', 'p1phXk2.png?1')
+loadSprite('mario1','4PpaX2S.png')
 loadSprite('mushroom', '0wMd92p.png')
-loadSprite('surprise', 'gesQ1KP.png')
+loadSprite('surprise', 'XkOj7sw.png?1')
 // loadSprite('2', 'gesQ1KP.png')
 // loadSprite('3', 'gesQ1KP.png')
 // loadSprite('4', 'gesQ1KP.png')
@@ -36,35 +43,47 @@ loadSprite('surprise', 'gesQ1KP.png')
 // loadSprite('9', 'gesQ1KP.png')
 // loadSprite('A', 'gesQ1KP.png')
 // loadSprite('B', 'gesQ1KP.png')
-loadSprite('C', 'gesQ1KP.png')
-loadSprite('unboxed', 'bdrLpi6.png')
+//loadSprite('C', 'gesQ1KP.png')
+loadSprite('unboxed', 'PYCGp87.jpg?1')
 loadSprite('pipe-top-left', 'ReTPiWY.png')
 loadSprite('pipe-top-right', 'hj2GK4n.png')
 loadSprite('pipe-bottom-left', 'c1cYSbt.png')
 loadSprite('pipe-bottom-right', 'nqQ79eI.png')
-
 loadSprite('blue-block', 'fVscIbn.png')
 loadSprite('blue-brick', '3e5YRQd.png')
 loadSprite('blue-steel', 'gqVoI2b.png')
 loadSprite('blue-evil-shroom', 'SvV4ueD.png')
 loadSprite('blue-surprise', 'RMqCc1G.png')
-
+// layers([
+//   "background",
+//   "game"
+// ], "game");
 
 
 scene("game", ({ level, score }) => {
   layers(['bg', 'obj', 'ui'], 'obj')
-
+  add([
+      sprite("background"),
+      layer("bg"),
+      pos(-1400,-750)
+    ])
+    
   const maps = [
     [
-      '=                                                                =',
-      '=                                                                =',
-      '=                                                                =',
-      '=                                                                =',
-      '=                                                                =',
-      '=    1   2   3   4      5  6     7  8       9   A      B   C     =',
-      '=                                                                =',
-      '=                                                                =',
-      '==================================================================',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=      1     2           3     4           5     6          7     8      =',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=                                                                        =',
+      '=                                                                      -+=',
+      '=                                                                      ()=',
+      '== = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =',
     ]
   ]
 
@@ -81,16 +100,12 @@ scene("game", ({ level, score }) => {
     '6': [sprite('surprise'), solid(), 'coin-surprise'],
     '7': [sprite('surprise'), solid(), 'coin-surprise'],
     '8': [sprite('surprise'), solid(), 'coin-surprise'],
-    '9': [sprite('surprise'), solid(), 'coin-surprise'],
-    'A': [sprite('surprise'), solid(), 'coin-surprise'],
-    'B': [sprite('surprise'), solid(), 'coin-surprise'],
-    'C': [sprite('surprise'), solid(), 'coin-surprise'],
     '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
     '}': [sprite('unboxed'), solid()],
-    //'(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
-    //')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
-    // '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
-    // '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
+    '(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
+    ')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
+    '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
+    '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
      '^': [sprite('evil-shroom'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), solid(), 'mushroom', body()],
     // '!': [sprite('blue-block'), solid(), scale(0.5)],
@@ -112,15 +127,18 @@ scene("game", ({ level, score }) => {
     }
   ])
   //add([text('Question ' + parseInt(level + 1) ), pos(40, 6)])
-  add([text(' what is your\neducation level ' ), pos(150, 11)])
-  add([text(' Highschool   12th    Bachelors   Phd'), pos(60, 80)])
-  add([text('    Do You\nhave children'), pos(470, 11)])
-  add([text('Yes     No'), pos(480, 80)])
-  add([text(' what is\nyour gender '), pos(660, 11)])
-  add([text('Male   Female'), pos(650, 80)])
-  add([text(' what is your \nmarriage type ' ), pos(870, 11)])
-  add([text('what is your\nworking status '), pos(1100, 11)])
-  
+  add([text(' 2 + 3 + 5 ' ), pos(173, 11),color(1,1,1)])
+  add([text('9            10'), pos(165, 65),color(1,1,1)])
+  add([text('7 * 7 '), pos(570, 11),color(1,1,1)])
+  add([text('14            49'), pos(525, 65),color(0,0,0)])
+  add([text('Capital of India '), pos(880, 11),color(0,0,0)])
+  add([text('New Delhi      Mumbai'), pos(860, 65),color(0,0,0)])
+  add([text(' National Sports of \n        India ' ), pos(1195, 11),color(0,0,0)])
+  add([text('Hockey        Cricket'), pos(1200, 65),color(0,0,0)])
+  add([text('Exit' ), pos(1423, 180),color(0,0,0)])
+  add([text('|' ), pos(1434, 193),color(0,0,0)])
+  add([text('|' ), pos(1434, 200),color(0,0,0)])
+  add([text('\\\/' ), pos(1430, 200),color(0,0,0)])
   
   function big() {
     let timer = 0
@@ -144,7 +162,7 @@ scene("game", ({ level, score }) => {
         timer = 0
         isBig = true
       },
-      biggify(time) {
+      biggify() {
         this.scale = vec2(2)
         timer = time
         isBig = true     
@@ -207,16 +225,14 @@ scene("game", ({ level, score }) => {
     }
   })
 
-  // player.collides('pipe', () => {
-  //   keyPress('down', () => {
-  //     go('game', {
-  //       level: (level + 1) % maps.length,
-  //       score: scoreLabel.value
-  //     })
-  //   })
-  // })
+  player.collides('pipe', () => {
+    keyPress('down', () => {
+      go('lose', { score: scoreLabel.value})
+    })
+  })
 
   keyDown('left', () => {
+    //player.biggify();
     player.move(-MOVE_SPEED, 0)
   })
 
@@ -230,16 +246,26 @@ scene("game", ({ level, score }) => {
     }
   })
 
+  keyDown('up', () => {
+    if (player.grounded()) {
+      isJumping = true
+      player.jump(CURRENT_JUMP_FORCE)
+      //play("wooosh");
+    }
+  })
+
   keyPress('space', () => {
     if (player.grounded()) {
       isJumping = true
       player.jump(CURRENT_JUMP_FORCE)
+      //play("wooosh");
     }
   })
 })
 
 scene('lose', ({ score }) => {
-  add([text(score, 32), origin('center'), pos(width()/2, height()/ 2)])
+  add([text(score, 32), origin('center'), pos(width()/2, height()/ 2),sprite("background"),
+  layer("bg"),])
 })
 
 start("game", { level: 0, score: 0})

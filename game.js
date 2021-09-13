@@ -3,7 +3,7 @@ kaboom({
   fullscreen: true,
   scale: 1,
   debug: true,
-  clearColor: [0.4, 0.1, 0.4, 1],
+  clearColor: [0, 0, 0, 1],
 })
 const MOVE_SPEED = 400
 const JUMP_FORCE = 660
@@ -26,6 +26,7 @@ let isJumping = true
 loadRoot('https://i.imgur.com/')
 loadSprite('coin', 'D9Nljxd.png?1')
 loadSprite('background','0tdFv3g.png')
+loadSprite('background1','VmmoGam.png?2')
 loadSprite('evil-shroom', 'KPO3fR9.png')
 loadSprite('brick', 'pogC9x5.png')
 loadSprite('block', 'Nkiciju.png?1')
@@ -264,7 +265,7 @@ scene("game", ({ level, score }) => {
 })
 
 scene('lose', ({ score }) => {
-  add([text(score, 32), origin('center'), pos(width()/2, height()/ 2),sprite("background"),
+  add([text(score, 32), origin('center'), pos(width()/2, height()/ 2),sprite("background1"),
   layer("bg"),])
 })
 

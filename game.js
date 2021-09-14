@@ -47,6 +47,10 @@ loadSprite('surprise', 'XkOj7sw.png?1')
 //loadSprite('C', 'gesQ1KP.png')
 loadSprite('unboxed', 'PYCGp87.jpg?1')
 loadSprite('pipe-top-left', 'ReTPiWY.png')
+loadSprite('white','P6ypm0Y.jpg?1')
+loadSprite('white1','654dae2.jpg?1')
+loadSprite('white2','aQ3XuR3.jpg?1')
+loadSprite('white3','rMCRVN4.jpg?1')
 loadSprite('pipe-top-right', 'hj2GK4n.png')
 loadSprite('pipe-bottom-left', 'c1cYSbt.png')
 loadSprite('pipe-bottom-right', 'nqQ79eI.png')
@@ -102,14 +106,14 @@ scene("game", ({ level, score }) => {
     '7': [sprite('surprise'), solid(), 'coin-surprise'],
     '8': [sprite('surprise'), solid(), 'coin-surprise'],
     '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
-    '}': [sprite('unboxed'), solid()],
+    '}': [sprite('unboxed'), solid(),'unboxed'],
     '(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
     ')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
     '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
     '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
      '^': [sprite('evil-shroom'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), solid(), 'mushroom', body()],
-    // '!': [sprite('blue-block'), solid(), scale(0.5)],
+    //'!': [sprite('coin-surprise'), solid(),'coin-surprise', scale(0.5)],
     // '£': [sprite('blue-brick'), solid(), scale(0.5)],
     // 'z': [sprite('blue-evil-shroom'), solid(), scale(0.5), 'dangerous'],
     // '@': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
@@ -128,13 +132,25 @@ scene("game", ({ level, score }) => {
     }
   ])
   //add([text('Question ' + parseInt(level + 1) ), pos(40, 6)])
-  add([text(' 2 + 3 + 5 ' ), pos(173, 11),color(1,1,1)])
-  add([text('9            10'), pos(165, 65),color(1,1,1)])
-  add([text('7 * 7 '), pos(570, 11),color(1,1,1)])
+  add([sprite('white1'),pos(155,5)])
+  add([text(' 2 + 3 + 5 ' ), pos(173, 11),color(0,0,0)])
+  add([sprite('white'),pos(135,60)])
+  add([sprite('white'),pos(252,60)])
+  add([text('9            10'), pos(165, 65),color(0,0,0)])
+  add([sprite('white1'),pos(540,5)])
+  add([text('7 * 7 '), pos(570, 11),color(0,0,0)])
+  add([sprite('white'),pos(495,60)])
+  add([sprite('white'),pos(612,60)])
   add([text('14            49'), pos(525, 65),color(0,0,0)])
+  add([sprite('white2'),pos(870,5)])
   add([text('Capital of India '), pos(880, 11),color(0,0,0)])
+  add([sprite('white3'),pos(860,60)])
+  add([sprite('white'),pos(977,60)])
   add([text('New Delhi      Mumbai'), pos(860, 65),color(0,0,0)])
+  add([sprite('white2'),pos(1190,8)])
   add([text(' National Sports of \n        India ' ), pos(1195, 11),color(0,0,0)])
+  add([sprite('white'),pos(1195,60)])
+  add([sprite('white'),pos(1310,60)])
   add([text('Hockey        Cricket'), pos(1200, 65),color(0,0,0)])
   add([text('Exit' ), pos(1423, 180),color(0,0,0)])
   add([text('|' ), pos(1434, 193),color(0,0,0)])
@@ -185,7 +201,7 @@ scene("game", ({ level, score }) => {
 
   player.on("headbump", (obj) => {
     if (obj.is('coin-surprise')) {
-      gameLevel.spawn('$', obj.gridPos.sub(0, 1))
+      gameLevel.spawn('$', obj.gridPos.sub(-0.75, 1.5))
       destroy(obj)
       gameLevel.spawn('}', obj.gridPos.sub(0,0))
     }
@@ -193,6 +209,10 @@ scene("game", ({ level, score }) => {
       gameLevel.spawn('#', obj.gridPos.sub(0, 1))
       destroy(obj)
       gameLevel.spawn('}', obj.gridPos.sub(0,0))
+    }
+    if (obj.is('unboxed')) {
+      destroy(obj)
+      gameLevel.spawn('1', obj.gridPos.sub(0,0))
     }
   })
 

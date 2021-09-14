@@ -24,12 +24,14 @@ let isJumping = true
 //   color(127, 200, 255),
 //])
 loadRoot('https://i.imgur.com/')
-loadSprite('coin', 'D9Nljxd.png?1')
+loadSprite('coin', 'ZDuIZVM.png?1')
 loadSprite('background','0tdFv3g.png')
 loadSprite('background1','VmmoGam.png?2')
 loadSprite('evil-shroom', 'KPO3fR9.png')
 loadSprite('brick', 'pogC9x5.png')
-loadSprite('block', 'Nkiciju.png?1')
+loadSprite('block', 'i0Jujrj.jpg?1')
+loadSprite('base','H1zqVSA.png?1')
+loadSprite('base1','Yd5riZI.png')
 loadSprite('mario', 'p1phXk2.png?1')
 loadSprite('mario1','4PpaX2S.png')
 loadSprite('mushroom', '0wMd92p.png')
@@ -49,8 +51,10 @@ loadSprite('unboxed', 'PYCGp87.jpg?1')
 loadSprite('pipe-top-left', 'ReTPiWY.png')
 loadSprite('white','P6ypm0Y.jpg?1')
 loadSprite('white1','654dae2.jpg?1')
-loadSprite('white2','aQ3XuR3.jpg?1')
+loadSprite('white2','t2eUCKG.jpg?1')
 loadSprite('white3','rMCRVN4.jpg?1')
+loadSprite('side1','VqBFcIq.png')
+loadSprite('white4','i0Jujrj.jpg?1')
 loadSprite('pipe-top-right', 'hj2GK4n.png')
 loadSprite('pipe-bottom-left', 'c1cYSbt.png')
 loadSprite('pipe-bottom-right', 'nqQ79eI.png')
@@ -70,25 +74,28 @@ scene("game", ({ level, score }) => {
   add([
       sprite("background"),
       layer("bg"),
-      pos(-1400,-750)
+      
+      pos(-1385,-1140)
     ])
     
   const maps = [
     [
-      '=                                                                        =',
-      '=                                                                        =',
-      '=                                                                        =',
-      '=                                                                        =',
-      '=      1     2           3     4           5     6          7     8      =',
-      '=                                                                        =',
-      '=                                                                        =',
-      '=                                                                        =',
-      '=                                                                        =',
-      '=                                                                        =',
-      '=                                                                        =',
-      '=                                                                      -+=',
-      '=                                                                      ()=',
-      '== = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =',
+  '=                                                                                            ',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';          1     2           3     4           5     6          7     8                     ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                                           ;',
+  ';                                                                             -+            ;',
+  ';                                                                             ()            ;',
+  '! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ;',
     ]
   ]
 
@@ -96,6 +103,9 @@ scene("game", ({ level, score }) => {
     width: 20,
     height: 20,
     '=': [sprite('block'), solid()],
+    '!': [sprite('base'), solid()],
+    '@': [sprite('base1'),solid()],
+    ';': [sprite('side1'),solid()],
     '$': [sprite('coin'), 'coin'],
     '1': [sprite('surprise'), solid(), 'coin-surprise'],
     '2': [sprite('surprise'), solid(), 'coin-surprise'],
@@ -132,30 +142,31 @@ scene("game", ({ level, score }) => {
     }
   ])
   //add([text('Question ' + parseInt(level + 1) ), pos(40, 6)])
-  add([sprite('white1'),pos(155,5)])
-  add([text(' 2 + 3 + 5 ' ), pos(173, 11),color(0,0,0)])
-  add([sprite('white'),pos(135,60)])
-  add([sprite('white'),pos(252,60)])
-  add([text('9            10'), pos(165, 65),color(0,0,0)])
-  add([sprite('white1'),pos(540,5)])
-  add([text('7 * 7 '), pos(570, 11),color(0,0,0)])
-  add([sprite('white'),pos(495,60)])
-  add([sprite('white'),pos(612,60)])
-  add([text('14            49'), pos(525, 65),color(0,0,0)])
-  add([sprite('white2'),pos(870,5)])
-  add([text('Capital of India '), pos(880, 11),color(0,0,0)])
-  add([sprite('white3'),pos(860,60)])
-  add([sprite('white'),pos(977,60)])
-  add([text('New Delhi      Mumbai'), pos(860, 65),color(0,0,0)])
-  add([sprite('white2'),pos(1190,8)])
-  add([text(' National Sports of \n        India ' ), pos(1195, 11),color(0,0,0)])
-  add([sprite('white'),pos(1195,60)])
-  add([sprite('white'),pos(1310,60)])
-  add([text('Hockey        Cricket'), pos(1200, 65),color(0,0,0)])
-  add([text('Exit' ), pos(1423, 180),color(0,0,0)])
-  add([text('|' ), pos(1434, 193),color(0,0,0)])
-  add([text('|' ), pos(1434, 200),color(0,0,0)])
-  add([text('\\\/' ), pos(1430, 200),color(0,0,0)])
+  add([sprite('white1'),pos(235,5)])
+  add([text(' 2 + 3 + 5 ' ), pos(253, 11),color(0,0,0)])
+  add([sprite('white'),pos(215,60)])
+  add([sprite('white'),pos(332,60)])
+  add([text('9            10'), pos(245, 65),color(0,0,0)])
+  add([sprite('white1'),pos(620,5)])
+  add([text('7 * 7 '), pos(650, 11),color(0,0,0)])
+  add([sprite('white'),pos(575,60)])
+  add([sprite('white'),pos(692,60)])
+  add([text('14            49'), pos(605, 65),color(0,0,0)])
+  add([sprite('white2'),pos(950,5)])
+  add([text('Capital of India '), pos(960, 11),color(0,0,0)])
+  add([sprite('white3'),pos(940,60)])
+  add([sprite('white'),pos(1057,60)])
+  add([text('New Delhi      Mumbai'), pos(940, 65),color(0,0,0)])
+  add([sprite('white2'),pos(1270,8)])
+  add([text(' National Sports of \n        India ' ), pos(1275, 11),color(0,0,0)])
+  add([sprite('white'),pos(1275,60)])
+  add([sprite('white'),pos(1390,60)])
+  add([text('Hockey        Cricket'), pos(1283, 65),color(0,0,0)])
+  add([sprite('white'),pos(1553,218)])
+  add([text('Exit' ), pos(1563, 220),color(0,0,0)])
+  add([text('|' ), pos(1574, 233),color(0,0,0)])
+  add([text('|' ), pos(1574, 240),color(0,0,0)])
+  add([text('\\\/' ), pos(1570, 240),color(0,0,0)])
   
   function big() {
     let timer = 0
@@ -201,7 +212,7 @@ scene("game", ({ level, score }) => {
 
   player.on("headbump", (obj) => {
     if (obj.is('coin-surprise')) {
-      gameLevel.spawn('$', obj.gridPos.sub(-0.75, 1.5))
+      gameLevel.spawn('$', obj.gridPos.sub(0, 3))
       destroy(obj)
       gameLevel.spawn('}', obj.gridPos.sub(0,0))
     }

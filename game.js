@@ -10,6 +10,10 @@ const JUMP_FORCE = 660
 const BIG_JUMP_FORCE = 550
 let CURRENT_JUMP_FORCE = JUMP_FORCE
 const FALL_DEATH = 400
+const pipex1=1500
+const pipey1= 200
+const pipex2=1700
+const pipey2=260
 const ENEMY_SPEED = 20
 
 // Game logic
@@ -257,11 +261,15 @@ scene("game", ({ level, score }) => {
     }
   })
 
-  player.collides('pipe', () => {
-    keyPress('down', () => {
+  keyDown('down', () => {
+    camPos(player.pos)
+    if (player.pos.x >= pipex1 && player.pos.y >= pipey1 && player.pos.x <= pipex2 && player.pos.y <= pipey2)
+    {
+      player.collides('pipe', () => {
       go('lose', { score: scoreLabel.value})
     })
-  })
+  }
+})
 
   keyDown('left', () => {
     //player.biggify();
